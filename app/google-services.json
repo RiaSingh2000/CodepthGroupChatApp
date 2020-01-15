@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "23347333819",
+    "firebase_url": "https://groupchat-b2551.firebaseio.com",
+    "project_id": "groupchat-b2551",
+    "storage_bucket": "groupchat-b2551.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23347333819:android:7b9c7026178c9b3bcc779e",
+        "android_client_info": {
+          "package_name": "com.codepth.groupchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23347333819-p3gl2hka4347vukbeec20goc6g177a64.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codepth.groupchat",
+            "certificate_hash": "77cd423be3e26912833891c95507014cbac71520"
+          }
+        },
+        {
+          "client_id": "23347333819-imndjq8bhj5lsasuevlc8i73sd97m7ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA_jS9PdgTeg_Y7KlgofDWGMPHhIkU894"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23347333819-imndjq8bhj5lsasuevlc8i73sd97m7ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
