@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,25 +33,6 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth.AuthStateListener mAuthListener;
 
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser!=null) {
-//            startActivity(new Intent(MainActivity.this, ChatActivity.class));
-//            MainActivity.this.finish();
-//        }
-
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        MainActivity.this.finish();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,5 +106,23 @@ public class MainActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser!=null) {
+//            startActivity(new Intent(MainActivity.this, ChatActivity.class));
+//            MainActivity.this.finish();
+//        }
+
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        MainActivity.this.finish();
     }
 }

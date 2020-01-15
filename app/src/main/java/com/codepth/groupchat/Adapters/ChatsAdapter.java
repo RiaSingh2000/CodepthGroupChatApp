@@ -1,6 +1,7 @@
 package com.codepth.groupchat.Adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsViewHol
 
             if(obj.getImgUri()!="") {
                 holder.msg_img.setVisibility(View.VISIBLE);
-                Glide.with(context).load(obj.getImgUri()).into(holder.msg_img);
+                Glide.with(context).load(Uri.parse(obj.getImgUri())).into(holder.msg_img);
             }
             if(getItemViewType(p)==MSG_TYPE_LEFT)
                 if(obj.getSender()!="")
