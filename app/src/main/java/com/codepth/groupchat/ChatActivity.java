@@ -37,6 +37,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,8 +47,10 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ChatActivity extends AppCompatActivity {
     //Button logOut;
@@ -138,6 +141,24 @@ public class ChatActivity extends AppCompatActivity {
             hashMap.put("personId",personId);
             databaseReference.child(fuser.getUid()).setValue(hashMap);
         }
+
+
+        DatabaseReference ttlRef=FirebaseDatabase.getInstance().getReference("chats");
+        long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(2, TimeUnit.DAYS);
+        Query oldItems = ttlRef.orderByChild("timestamp").endAt(cutoff);
+        oldItems.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot: snapshot.getChildren()) {
+                    itemSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
 
 //        logOut.setOnClickListener(new View.OnClickListener() {
 //            @Override
