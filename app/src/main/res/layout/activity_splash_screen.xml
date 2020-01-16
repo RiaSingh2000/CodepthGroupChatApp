@@ -13,39 +13,5 @@
         android:layout_centerInParent="true"
         android:src="@drawable/initiative"/>
 
-    <RelativeLayout
-        android:id="@+id/splash_rel"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="@color/overlay_dark_90"
-        android:padding="2dp"
-        android:visibility="invisible"
-        >
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="No internet!!"
-            android:textSize="17dp"
-            android:textColor="@color/overlay_light_90"
-            android:textStyle="bold"
-            android:gravity="center_vertical"/>
-
-        <Button
-            android:id="@+id/connect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@color/overlay_dark_90"
-            android:text="Connect"
-            android:textColor="@color/blue_300"
-            android:textSize="17dp"
-            android:textStyle="bold"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            />
-    </RelativeLayout>
 </RelativeLayout>

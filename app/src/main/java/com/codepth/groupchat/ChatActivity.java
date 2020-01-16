@@ -3,12 +3,16 @@ package com.codepth.groupchat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepth.groupchat.Adapters.ChatsAdapter;
+import com.codepth.groupchat.Common.NetworkChangeReceiver;
 import com.codepth.groupchat.Common.VerticalSpacingItemDecoration;
 import com.codepth.groupchat.Model.MessageModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -68,6 +73,7 @@ public class ChatActivity extends AppCompatActivity {
     StorageReference storageReference;
     FirebaseUser fuser;
 
+    NetworkChangeReceiver networkChangeReceiver=new NetworkChangeReceiver();
 
     private static final int IMAGE_REQUEST=1;
     Uri imgUri;
@@ -85,6 +91,11 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
        // logOut=findViewById(R.id.logout);
+
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
+        registerReceiver(networkChangeReceiver,intentFilter);
 
         mAuth=FirebaseAuth.getInstance();
         messages=findViewById(R.id.messages);
@@ -287,4 +298,12 @@ public class ChatActivity extends AppCompatActivity {
             text.setText("");
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(networkChangeReceiver);
+    }
+
+
 }
