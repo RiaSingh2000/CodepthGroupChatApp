@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
@@ -131,7 +132,6 @@ public class ChatActivity extends AppCompatActivity {
              String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
-           // Toast.makeText(this, ""+personName, Toast.LENGTH_SHORT).show();
 
 
             databaseReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -143,22 +143,6 @@ public class ChatActivity extends AppCompatActivity {
         }
 
 
-        DatabaseReference ttlRef=FirebaseDatabase.getInstance().getReference("chats");
-        long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(2, TimeUnit.DAYS);
-        Query oldItems = ttlRef.orderByChild("timestamp").endAt(cutoff);
-        oldItems.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot: snapshot.getChildren()) {
-                    itemSnapshot.getRef().removeValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                throw databaseError.toException();
-            }
-        });
 
 //        logOut.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -191,6 +175,7 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("img",uri);
         hashMap.put("sender",fuser.getUid());
         hashMap.put("senderName",fuser.getDisplayName());
+        hashMap.put("timestamp", ServerValue.TIMESTAMP);
 
        // String id=databaseReference.push().getKey();
         databaseReference.child("chats").push().setValue(hashMap);
@@ -209,7 +194,8 @@ public class ChatActivity extends AppCompatActivity {
                     String imgUri=snapshot.child("img").getValue().toString();
                     String sender=snapshot.child("sender").getValue().toString();
                     String senderName=snapshot.child("senderName").getValue().toString();
-                    msg_list.add(new MessageModel(imgUri,message,sender,senderName));
+                    String timestamp=snapshot.child("timestamp").getValue().toString();
+                    msg_list.add(new MessageModel(imgUri,message,sender,senderName,timestamp));
                     //Toast.makeText(ChatActivity.this, ""+snapshot.child("message").getValue(), Toast.LENGTH_SHORT).show();
 
                 }
