@@ -241,21 +241,6 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    public void openDialog(Uri uri){
-        ImageDialog imageDialog=new ImageDialog();
-        Bundle args = new Bundle();
-        args.putString("uri",imgUri.toString());
-        imageDialog.setArguments(args);
-        imageDialog.show(getSupportFragmentManager(),"Image Dialog");
-
-    }
-
-    private String getFileExtension(Uri uri){
-        ContentResolver cr=getContentResolver();
-        MimeTypeMap mimeTypeMap=MimeTypeMap.getSingleton();
-        return  mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
-
-    }
 
     public void uploadImage(){
         if(imgUri!=null){
